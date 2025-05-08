@@ -1,25 +1,14 @@
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 import Header from '@/components/Header';
 import LoginForm from '@/components/LoginForm';
 
 export default function LoginPage() {
   // Get site password from environment variable
   const sitePassword = process.env.SITE_PASS;
-  
+
   if (!sitePassword) {
     throw new Error('Missing environment variable: SITE_PASS must be set');
   }
-  /*
-  // Server-side auth check
-  const cookieStore = cookies();
-  const authCookie = cookieStore.get('auth');
-  
-  // If already authenticated, redirect to home
-  if (authCookie) {
-    redirect('/');
-  }
-  */
+
   return (
     <>
       <Header />
