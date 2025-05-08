@@ -1,7 +1,6 @@
 'use server';
 
 import { addQuestion, getQuestions, initDatabase } from '@/lib/db';
-import { redirect } from 'next/navigation';
 
 // Initialize the database (call this during app initialization)
 export async function initializeDatabaseAction() {
@@ -13,11 +12,11 @@ export async function initializeDatabaseAction() {
 export async function submitQuestionAction(formData: FormData) {
   try {
     const question = formData.get('question')?.toString();
-    
+
     if (!question || question.trim() === '') {
       return { success: false, error: 'Question cannot be empty' };
     }
-    
+
     await addQuestion(question);
     return { success: true };
   } catch (error) {
@@ -39,13 +38,12 @@ export async function getQuestionsAction() {
 
 // Check password for authentication
 export async function checkPasswordAction(formData: FormData) {
-  console.log("INFOSEC");
   const password = formData.get('password')?.toString();
   const sitePassword = process.env.SITE_PASS;
-  
+
   if (!password || password !== sitePassword) {
     return { success: false, error: 'Invalid password' };
   }
-  
+
   return { success: true, password: sitePassword };
 }

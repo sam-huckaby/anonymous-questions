@@ -27,7 +27,7 @@ export default function LoginForm() {
 
       if (result.success) {
         // Set auth cookie and redirect to main page
-        setAuthCookie(result.password);
+        setAuthCookie(password);
         router.push('/');
       } else {
         setError(result.error || 'Invalid password');
@@ -51,7 +51,7 @@ export default function LoginForm() {
         <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 text-primary">
           <LockKeyholeIcon className="h-8 w-8" />
         </div>
-        
+
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-bold tracking-tight">Protected Area</h1>
           <p className="text-muted-foreground">Enter the password to access this content</p>
@@ -72,9 +72,9 @@ export default function LoginForm() {
               required
             />
           </div>
-          
+
           {error && (
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="text-sm text-destructive"
@@ -82,7 +82,7 @@ export default function LoginForm() {
               {error}
             </motion.p>
           )}
-          
+
           <button
             type="submit"
             disabled={isLoading}

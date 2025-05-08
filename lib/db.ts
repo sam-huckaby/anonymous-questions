@@ -8,7 +8,7 @@ export async function initDatabase() {
   }
 
   const sql = neon(process.env.DATABASE_URL);
-  
+
   try {
     // Create questions table if it doesn't exist
     await sql`
@@ -31,7 +31,7 @@ export async function getQuestions() {
   }
 
   const sql = neon(process.env.DATABASE_URL);
-  
+
   try {
     // Get all questions, sorted by newest first
     const questions = await sql`
@@ -52,7 +52,7 @@ export async function addQuestion(question: string) {
   }
 
   const sql = neon(process.env.DATABASE_URL);
-  
+
   try {
     // Insert the question
     const result = await sql`

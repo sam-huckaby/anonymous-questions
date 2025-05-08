@@ -24,9 +24,9 @@ export default function QuestionsList({ hasAnswered }: { hasAnswered: boolean })
         try {
           setIsLoading(true);
           const result = await getQuestionsAction();
-          
+
           if (result.success) {
-            setQuestions(result.questions || []);
+            setQuestions(result.questions as Question[] || []);
           } else {
             setError(result.error || 'Failed to load questions');
           }
@@ -96,7 +96,7 @@ export default function QuestionsList({ hasAnswered }: { hasAnswered: boolean })
   return (
     <div className="w-full max-w-xl mx-auto">
       <h2 className="text-xl font-semibold mb-4">Recent Questions</h2>
-      
+
       <div className="space-y-4">
         <AnimatePresence>
           {questions.map((question, index) => (
