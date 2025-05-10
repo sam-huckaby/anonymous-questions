@@ -16,7 +16,7 @@ export default function QuestionForm({ siteQuestion, sitePassword }: { siteQuest
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!question.trim()) {
       setError('Please enter a question');
       return;
@@ -27,22 +27,22 @@ export default function QuestionForm({ siteQuestion, sitePassword }: { siteQuest
         // Create form data
         const formData = new FormData();
         formData.append('question', question);
-        
+
         // Submit the question
         const result = await submitQuestionAction(formData);
-        
+
         if (result.success) {
           // Mark user as having answered a question
           setAnsweredCookie(sitePassword);
           // Show success message and reset form
           setSuccess(true);
           setQuestion('');
-          
+
           // Reset success message after 3 seconds
           setTimeout(() => {
             setSuccess(false);
           }, 3000);
-          
+
           // Reload page to show questions
           setTimeout(() => {
             window.location.reload();
@@ -57,7 +57,7 @@ export default function QuestionForm({ siteQuestion, sitePassword }: { siteQuest
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -66,8 +66,8 @@ export default function QuestionForm({ siteQuestion, sitePassword }: { siteQuest
       <div className="bg-card rounded-lg shadow-md p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label 
-              htmlFor="question" 
+            <label
+              htmlFor="question"
               className="block text-lg font-medium text-card-foreground"
             >
               {siteQuestion}
@@ -77,32 +77,32 @@ export default function QuestionForm({ siteQuestion, sitePassword }: { siteQuest
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               rows={4}
-              className="block w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="block w-full rounded-md border border-input bg-background px-3 py-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               placeholder="Type your question here..."
               disabled={isPending}
             />
           </div>
-          
+
           {error && (
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-sm text-destructive"
+              className="text-destructive"
             >
               {error}
             </motion.p>
           )}
-          
+
           {success && (
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-sm text-green-600 dark:text-green-400"
+              className="text-green-600 dark:text-green-400"
             >
               Question submitted successfully!
             </motion.p>
           )}
-          
+
           <div className="flex justify-end">
             <button
               type="submit"

@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquareIcon, LockIcon } from 'lucide-react';
-import { formatDistance } from 'date-fns';
 import { getQuestionsAction } from '@/lib/actions';
 import { LoadingSpinner } from '@/components/ui/Loading';
+import { ResponseBlock } from './ResponseBlock';
 
 type Question = {
   id: number;
@@ -99,19 +99,8 @@ export default function QuestionsList({ hasAnswered }: { hasAnswered: boolean })
 
       <div className="space-y-4">
         <AnimatePresence>
-          {questions.map((question, index) => (
-            <motion.div
-              key={question.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="bg-card rounded-lg shadow-sm p-4 border border-border/50"
-            >
-              <p className="text-card-foreground mb-2">{question.question}</p>
-              <p className="text-xs text-muted-foreground">
-                {formatDistance(new Date(question.created_at), new Date(), { addSuffix: true })}
-              </p>
-            </motion.div>
+          {questions.map(({ id, question, created_at }, index) => (
+            <ResponseBlock key={id} id={id} delay={index} question={question} created_at={created_at} />
           ))}
         </AnimatePresence>
       </div>
