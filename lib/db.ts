@@ -33,9 +33,13 @@ export async function getQuestions() {
   const sql = neon(process.env.DATABASE_URL);
 
   try {
-    // Get all questions, sorted by newest first
-    const questions = await sql`
-      SELECT * FROM questions 
+    // Get all questions, sorted by newest first (obfuscated if desired)
+    const questions = process.env.SITE_HIDDEN === "false" ?
+      await sql`
+      SELECT id, question, created_at FROM questions 
+      ORDER BY created_at DESC
+    ` : sql`
+      SELECT id, regexp_replace(question, '\\\S', '#', 'gi') AS question, created_at FROM questions 
       ORDER BY created_at DESC
     `;
     return questions;
